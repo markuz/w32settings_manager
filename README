@@ -1,0 +1,13 @@
+This is win32settings_manager.
+
+This project aims of easy management of several settings for a 
+farm of win32 (win64 could be, but I have only win32)  machines.
+
+The project is divide into two parts, the server, which should be running 
+on a 'master' machine, and the clients that are all those win32 computers
+that you want to keep the settings in order.
+
+It's intended to have the same settings on every computer, so, individual 
+configurations and exceptions are not part of the project right now.
+
+If you want to cooperate you can safely email me at Marco Antonio Islas Cruz <markuz_at_islascruz.org>.
