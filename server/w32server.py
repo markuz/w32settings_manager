@@ -5,12 +5,12 @@
 #
 # Copyright (c) 2006-2007 Marco Antonio Islas Cruz
 #
-# Christine is free software; you can redistribute it and/or modify
+# win32settings_manager is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
 #
-# Christine is distributed in the hope that it will be useful,
+# win32settings_manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -23,28 +23,20 @@
 # @author    Marco Antonio Islas Cruz <markuz@islascruz.org>
 # @copyright 2010 Marco Antonio Islas Cruz
 # @license   http://www.gnu.org/licenses/gpl.txt
+import os
 '''
-Created on Nov 12, 2010
+Created on Nov 15, 2010
 
 @author: Marco Antonio Islas Cruz
-
-This app connects with a server and ask for several settings, then
-apply them on the system.
 '''
-import os
-from libw23s.logger import LoggerManager
-from libw32s.globalvars import PLUGINSDIR
 
-class main():
-    '''
-    This class is the manager for the plugins. Will load them and
-    launch them if they are enabled
-    '''
+from libw32server.config import config
+from libw32server.globalvars import PLUGINSDIR
+
+class main(object):
     def __init__(self):
-        self.logger = LoggerManager().getLogger('main')
-        self.plugins = {}
-        self.load_plugins()
-
+        self.__load_modules()
+    
     def load_plugins(self):
         '''
         Search for the files and then use the __importByName to load them
@@ -83,5 +75,6 @@ class main():
             self.logger.exception(e)
             return None
         return module
-
-#Try to import plugins
+    
+    def __start_service(self):
+        

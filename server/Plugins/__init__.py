@@ -23,40 +23,28 @@
 # @author    Marco Antonio Islas Cruz <markuz@islascruz.org>
 # @copyright 2010 Marco Antonio Islas Cruz
 # @license   http://www.gnu.org/licenses/gpl.txt
-import sys
 '''
-Created on Nov 12, 2010
+Created on Nov. 15, 2010
 
-@author: marcoantonioislascruz
-
-This module set several variables that are used accross the 
-program.
+This module answers the default_wallpaper function call.
+@author: Marco Antonio Islas Cruz
 '''
-import os
-import tempfile
+from libw32server.webservice import webservice
+from libw32server.config import config
 
-def get_user_dir():
-    if os.environ.has_key('XDG_CONFIG_HOME'):
-        userdir = os.path.join(os.environ['XDG_CONFIG_HOME'],'win32s')
-    else:
-        userdir = os.path.join(os.environ["HOME"],".config","christine")
-    return userdir
+class Plugin(object):
+    '''
+    This is the base class for the plugins
+    '''
+    def __init__(self):
+        self.enabled_key = ''
+        self.webservice = webservice()
+        self.config = config()
+    
+    def get_enabled(self):
+        return self.conf.get_value(self.enabled_key)
+    def set_enabled(self,value):
+        return self.conf.set_value(self.enabled_key, bool(value))
 
-USERDIR = get_user_dir()
-PLUGINSDIR=os.path.join(os.getcwd(), 'libw32s','Plugins')
-LOGGERDIR=tempfile.tempdir
-if '--devel' in sys.path or '-d' in sys.path:
-    LOGDIR = os.getcwd()
-    DBDIR = os.getcwd()
-    CONFIGDIR = os.getcwd()
-else:
-    LOGDIR = os.path.join('/','var','log','win32server')
-    DBDIR = USERDIR
-    CONFIGDIR = USERDIR 
-#Make sure the logdir exists.
-for i in LOGDIR,DBDIR,CONFIGDIR:
-    if not os.path.exists(i) and not os.path.isdir(i):
-        os.makedirs(i)
-
-DBFILE = os.path.join(DBDIR,'w32server.db')
-CONFIGFILE = os.path.join(CONFIGDIR,'win32server.conf')
+    enabled = property(get_enabled, set_enabled, None, 
+                       'If the plugin is enabled or not')

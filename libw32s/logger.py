@@ -28,7 +28,7 @@ import logging
 import logging.handlers
 from libw32s.Singleton import Singleton
 from libw32s.options import options
-from libw32s.globalvars import LOGGINGDIR
+from libw32s.globalvars import LOGGERDIR
 
 
 class LoggerManager(Singleton):
@@ -49,8 +49,8 @@ class LoggerManager(Singleton):
             self.LOGGING_HANDLER = logging.StreamHandler()
             self.ERROR_HANDLER = logging.StreamHandler()
         else:
-            logfile = os.path.join(USERDIR, 'christine_events.log')
-            errorfile = os.path.join(USERDIR, 'christine_errors.log')
+            logfile = os.path.join(LOGGERDIR, 'christine_events.log')
+            errorfile = os.path.join(LOGGERDIR, 'christine_errors.log')
             self.LOGGING_HANDLER = logging.handlers.RotatingFileHandler(logfile,'a',3145728, 3)
             self.ERROR_HANDLER = logging.handlers.RotatingFileHandler(errorfile,'a',1048576, 2)
 

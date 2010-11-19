@@ -60,8 +60,8 @@ class main():
             time.sleep(10)
     
     def __create_client(self):
-        host = self.conf['server/host']
-        port = self.conf['server/port']
+        host = self.conf['/webservice/host']
+        port = self.conf['/webservice/port']
         self.service = SOAPpy.SOAPProxy("%s:%s"%(host, port))
     
     def __ask_forever(self):
